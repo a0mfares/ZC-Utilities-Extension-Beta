@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA Tools - Zewail City</title>
+
+    <style>
+        :root {
+            --primary: #00B4D1;
+            --primary-dark: #0096C7;
+            --primary-deep: #023E8A;
+            --primary-light: #CAF0F8;
+            --bg-dark: #0f172a;
+            --white: #ffffff;
+            --text-gray: #64748b;
+            --text-dark: #1f2937;
+            --success: #10B981;
+            --success-hover: #059669;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-dark);
+            width: 380px;
+            min-height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            overflow: hidden;
+
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg,
+                    transparent 0deg,
+                    var(--primary) 50deg,
+                    transparent 180deg,
+                    var(--primary) 200deg,
+                    transparent 270deg,
+                    transparent 360deg);
+            animation: moveOrb 4s linear infinite;
+            filter: blur(60px);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        @keyframes moveOrb {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(90deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+
+            75% {
+                transform: rotate(270deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .popup-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 16px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 180, 209, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .popup-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-deep) 100%);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--primary-light);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+            background: white;
+            flex-shrink: 0;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .header-text h1 {
+            font-size: 16px;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .header-text p {
+            font-size: 11px;
+            color: var(--primary-light);
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        .popup-content {
+            padding: 20px;
+        }
+
+        .tool-section {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .tool-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-gray);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-dark);
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .toggle-label {
+            font-size: 13px;
+            color: var(--white);
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 22px;
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #475569;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: var(--primary);
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(18px);
+        }
+
+        .action-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 180, 209, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(0, 180, 209, 0.3);
+        }
+
+        .action-btn:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="popup-card">
+        <div class="popup-header">
+            <div class="logo-icon"><img src="Assets/logo.png" alt="ZC Logo"></div>
+            <div class="header-text">
+                <h1>University Tools</h1>
+                <p>Zewail City Extension</p>
+            </div>
+        </div>
+
+        <div class="popup-content">
+
+            <div class="tool-section">
+                <div class="section-title">Configuration</div>
+                <div class="toggle-row">
+                    <span class="toggle-label" for="toggleBlock">Block Stop List Page</span>
+                    <label class="switch">
+                        <input type="checkbox" id="toggleBlock">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="tool-section">
+                <div class="section-title">Tools</div>
+                <button id="calcBtn" class="action-btn">
+                    <span><img src="Assets/gpac.png" alt="GPA Calculator" width="30px" height="30px"></span> GPA
+                    Calculator
+                </button>
+                <br>
+                <button id="courseworkBtn" class="action-btn">
+                    <span><img src="Assets/coursework.png" alt="Coursework Calculator" width="30px"
+                            height="30px"></span>
+                    Coursework Calculator
+                </button>
+                <br>
+                <button id="plannerBtn" class="action-btn">
+                    <span><img src="Assets/planner.png" alt="Academic Planner" width="30px" height="30px"></span>
+                    Academic Planner
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="error-popup.css">
+    <script src="error-popup.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+{
+    "manifest_version": 3,
+    "name": "ZC Toolbox Beta",
+    "version": "1.0",
+    "description": "Beta version for ZC Toolbox which is an extension that helps zc students with academic planning, gpa calculation and coursework calculation.",
+    "icons": {
+        "16": "Assets/Icon/16.png",
+        "32": "Assets/Icon/32.png",
+        "48": "Assets/Icon/48.png",
+        "128": "Assets/Icon/128.png"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage",
+        "declarativeNetRequest",
+        "tabs"
+    ],
+    "host_permissions": [
+        "https://sisselfservice.zewailcity.edu.eg/*",
+        "https://zc-utilities-extension-api.vercel.app/*"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "ZC toolbox",
+        "default_icon": {
+            "16": "Assets/logo.png",
+            "32": "Assets/logo.png",
+            "48": "Assets/logo.png",
+            "128": "Assets/logo.png"
+        }
+    },
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://sisselfservice.zewailcity.edu.eg/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ]
+}
